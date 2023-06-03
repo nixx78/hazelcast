@@ -1,0 +1,8 @@
+hazelcast:
+  cluster-name: hazelcast-cluster
+  network:
+    rest-api:
+      enabled: true
+      endpoint-groups:
+        DATA:
+          enabled: true

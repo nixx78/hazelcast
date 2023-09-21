@@ -1,4 +1,4 @@
-package lv.nixx.poc.hazelcast;
+package lv.nixx.poc.hazelcast.controller;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;

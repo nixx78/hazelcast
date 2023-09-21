@@ -1,5 +1,6 @@
 package lv.nixx.poc;
 
+import com.hazelcast.cache.HazelcastCachingProvider;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.MapConfig;
 import com.hazelcast.config.MapStoreConfig;
@@ -14,9 +15,31 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.cache.Cache;
+import javax.cache.CacheManager;
+import javax.cache.Caching;
+import javax.cache.configuration.CompleteConfiguration;
+import javax.cache.configuration.MutableConfiguration;
+import javax.cache.spi.CachingProvider;
+
 @Configuration
 @EnableSwagger2
 public class AppConfig {
+
+    @Bean
+    Cache<String, String> helloWorldCache() {
+        CachingProvider cachingProvider = Caching.getCachingProvider(HazelcastCachingProvider.SERVER_CACHING_PROVIDER);
+
+        CacheManager cacheManager = cachingProvider.getCacheManager();
+
+        // Create a simple but typesafe configuration for the cache.
+        CompleteConfiguration<String, String> config =
+                new MutableConfiguration<String, String>()
+                        .setTypes(String.class, String.class);
+
+        // Create and get the cache.
+        return cacheManager.createCache("hello_world_cache", config);
+    }
 
     @Bean
     public JetInstance jetInstance() {

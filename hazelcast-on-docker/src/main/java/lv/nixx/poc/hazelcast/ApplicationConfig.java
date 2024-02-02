@@ -1,6 +1,5 @@
 package lv.nixx.poc.hazelcast;
 
-import com.hazelcast.cache.HazelcastCachingProvider;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.client.config.ClientNetworkConfig;
 import com.hazelcast.client.properties.ClientProperty;
@@ -15,7 +14,6 @@ import javax.cache.Caching;
 import javax.cache.configuration.CompleteConfiguration;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.spi.CachingProvider;
-
 import java.util.List;
 
 @Configuration
@@ -44,7 +42,6 @@ public class ApplicationConfig {
         // https://docs.hazelcast.com/hazelcast/5.3/jcache/setup#jcache-declarative-configuration
         //https://docs.hazelcast.com/hazelcast/5.3/jcache/icache#icache-configuration
 
-        //TODO Try to create cache in XML and retrieve it using getCache() -> https://docs.hazelcast.com/hazelcast/5.3/jcache/setup
 
         CachingProvider cachingProvider = Caching.getCachingProvider();
         CacheManager cacheManager = cachingProvider.getCacheManager();
@@ -58,6 +55,19 @@ public class ApplicationConfig {
 
         // Create and get the cache.
         return cacheManager.createCache("hello_world_cache", cacheConfig);
+    }
+
+    @Bean
+    Cache<String, String> xmlCache() {
+        //TODO Try to create cache in XML and retrieve it using getCache() -> https://docs.hazelcast.com/hazelcast/5.3/jcache/setup
+
+        CachingProvider cachingProvider = Caching.getCachingProvider();
+        CacheManager cacheManager = cachingProvider.getCacheManager();
+
+        Iterable<String> cacheNames = cacheManager.getCacheNames();
+
+        // Create and get the cache.
+        return cacheManager.getCache("XML-ConfiguredCache");
     }
 
 }

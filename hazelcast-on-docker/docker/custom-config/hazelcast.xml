@@ -509,7 +509,7 @@
         </edge-defaults>
     </jet>
 
-    <cache name="XML-ConfiguredCache">
+    <cache name="predifinedCache">
         <key-type class-name="java.lang.String"/>
         <value-type class-name="java.lang.String"/>
         <statistics-enabled>true</statistics-enabled>
@@ -517,5 +517,5 @@
         <read-through>true</read-through>
         <write-through>true</write-through>
     </cache>
-
+    
 </hazelcast>
